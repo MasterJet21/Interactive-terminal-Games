@@ -1,0 +1,63 @@
+import time, random
+
+check = True
+
+print("Hello welcome to my elevator algorithm! Please let me know how many floors ur building has?")
+
+while check is True:
+    try:
+        floors = int(input())   # attempt conversion
+        check = False
+    except ValueError:
+        print("Please enter an integer.")
+
+print(f"Ah I see ur building has {floors} floors")
+print("Lets run this simulator!")
+
+start = 1
+
+while start != 0:
+    time.sleep(2)
+    print(f"The lift is at floor {start}.")
+
+    time.sleep(3)
+
+    pressed_button = random.randint(2, floors)
+
+    if pressed_button != start:
+        print(f"A friendly neighbour pressed the lift button at floor {pressed_button}.")
+    else:
+        print(f"The lift opens for the neighbour at floor {start}.")
+
+    if start < pressed_button:
+        for movement in range(start, pressed_button+1):
+
+            time.sleep(1)
+
+            if movement == pressed_button:
+                print(f"The lift has reached level {pressed_button} and opened.")
+                start = pressed_button
+                break
+
+        print(f"The lift is on the way to level {pressed_button} and is currently at level {movement}.")
+
+    if start > pressed_button:
+        for down in reversed(range(pressed_button, start)):
+
+            time.sleep(1)
+
+            if down == pressed_button:
+                print(f"The lift has reached level {down} and opened.")
+                start = pressed_button
+                break
+
+            print(f"The lift is on the way to level {pressed_button} and is currently at level {down}.")
+
+    user_input = input("Do you want to end this simulator? If so enter 'exit', if not press 'enter'.")
+    if user_input.lower() == 'exit':
+        break
+    else:
+        continue
+
+time.sleep(1)
+print("Simulator ended, Bye bye!")
